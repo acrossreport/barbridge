@@ -46,13 +46,15 @@ GS1規格内最大のサイズを自動計算して、メモリ上のラスタ�
 
 ## サンプル: 各言語からBarBridgeを呼び出す
 
-`windows-x64/` には対応言語ごとの最小サンプルが入っており、すべて同じ
-ネイティブライブラリ(`barbridge.dll`)をC ABI経由で呼び出します。
+`windows-x64/` と `windows-arm64/` にはそれぞれ対応言語ごとの最小サンプルが
+入っており、すべて同じネイティブライブラリ(`barbridge.dll`)をC ABI経由で
+呼び出します。
 
 ```
 barbridge/
 ├── barbridge.h       # C ABIヘッダ (C/C++, cgo 等)
-└── windows-x64/       # Windows (x64)
+├── windows-x64/       # Windows (x64)
+└── windows-arm64/      # Windows (ARM64)
     ├── native/barbridge.dll, barbridge.dll.lib
     ├── common/request.json   # サンプル共通のGS1データ
     ├── c/          # C (barbridge.dll.lib をリンク)
@@ -82,8 +84,7 @@ barbridge/
 ライブラリを別の場所に置いている場合は、相対パスの代わりに環境変数
 `BARBRIDGE_NATIVE_LIB` でそのパスを指定できます。
 
-現時点では `windows-x64/` のみ公開しています。macOS(arm64/x64)・
-Linux(arm64/x64)向けの同構成サンプルは今後公開予定です。
+macOS(arm64/x64)・Linux(arm64/x64)向けの同構成サンプルは今後公開予定です。
 
 ## 公開しているAPI(上記サンプルで使用)
 

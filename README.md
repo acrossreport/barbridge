@@ -52,14 +52,15 @@ GS1-compliant print size that still fits your target footprint (e.g. 50mm ×
 
 ## Samples: call BarBridge from your language
 
-`windows-x64/` contains a self-contained, minimal sample for each
-supported language, all calling the same native library
+`windows-x64/` and `windows-arm64/` each contain a self-contained, minimal
+sample for every supported language, all calling the same native library
 (`barbridge.dll`) through its C ABI:
 
 ```
 barbridge/
 ├── barbridge.h       # C ABI header (C/C++, cgo, ...)
-└── windows-x64/       # Windows (x64)
+├── windows-x64/       # Windows (x64)
+└── windows-arm64/      # Windows (ARM64)
     ├── native/barbridge.dll, barbridge.dll.lib
     ├── common/request.json   # shared sample GS1 data
     ├── c/          # C (link against barbridge.dll.lib)
@@ -89,8 +90,8 @@ the buffer when done.
 If you keep the library somewhere else, point the `BARBRIDGE_NATIVE_LIB`
 environment variable at it instead of relying on the relative path.
 
-Only `windows-x64/` is published here for now. macOS (arm64/x64) and
-Linux (arm64/x64) builds of the same sample set are planned.
+macOS (arm64/x64) and Linux (arm64/x64) builds of the same sample set are
+planned.
 
 ## Exposed API (used by the samples above)
 
