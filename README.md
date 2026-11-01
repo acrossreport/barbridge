@@ -27,6 +27,24 @@ GS1-compliant print size that still fits your target footprint (e.g. 50mm ×
 
 ![sample](docs/samples/ean13_gs1qr_horizontal.png)
 
+## Beyond POS: logistics and traceability
+
+GS1 Sunrise 2027 is framed around retail checkout, but the same 1D/2D pair
+is just as useful upstream of the register — receiving, picking, expiry
+checks, and recalls all need the lot number and expiration date that a
+bare GTIN barcode can't carry. Encoding a GS1 AI element string such as
+`(01)04901234567894(10)LOT42(17)271231` into the 2D symbol lets a single
+scan resolve GTIN + lot + expiry together, instead of a GTIN scan followed
+by manual lookup:
+
+![sample](docs/samples/gs1_qr_lot_expiry.png)
+
+This uses the same `barbridge_render_png` call as the POS sample above —
+only the `data` and `matrix` fields in the request JSON change (`"matrix":
+"qr"` here vs. `"data_matrix"`). GS1-128 and other case/pallet-label
+symbologies for shipping units (SSCC) are not yet supported; see
+[Supported standards](#supported-standards).
+
 ## Concept
 
 - **GS1-compliant size optimization**: computes the optimal scale so the
