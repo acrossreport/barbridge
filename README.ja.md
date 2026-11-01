@@ -118,4 +118,4 @@ C宣言の全体は [`barbridge.h`](barbridge.h) を参照してください(生
 
 ## License
 
-MIT OR Apache-2.0
+[Apache License, Version 2.0](LICENSE-APACHE) または [MIT license](LICENSE-MIT) のいずれかを選択できます。
