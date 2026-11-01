@@ -95,8 +95,6 @@ the buffer when done.
 If you keep the library somewhere else, point the `BARBRIDGE_NATIVE_LIB`
 environment variable at it instead of relying on the relative path.
 
-macOS (arm64/x64) builds of the same sample set are planned.
-
 ## Exposed API (used by the samples above)
 
 See [`barbridge.h`](barbridge.h) for the full C declarations (raw raster
