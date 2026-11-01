@@ -1,0 +1,7 @@
+# Build/run artifacts from the samples — not checked in.
+**/bin/
+**/obj/
+**/target/
+**/node_modules/
+**/output.png
+**/output.pdf
