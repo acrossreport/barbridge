@@ -5,6 +5,12 @@ English | [日本語](README.ja.md)
 **A language-independent core for GS1 Sunrise 2027 1D/2D barcode generation,
 written in Rust, usable from any language across a C ABI boundary.**
 
+## News
+
+- **GS1 Sunrise 2027-compliant BarBridge has been released.** The core now
+  generates GS1-compliant 1D/2D barcode pairs for production use — see
+  [Concept](#concept) and [Supported standards](#supported-standards) below.
+
 ## What this is
 
 In 2027, GS1 is moving retail POS barcode practice away from 1D-only symbols
