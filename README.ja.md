@@ -46,10 +46,10 @@ GS1規格内最大のサイズを自動計算して、メモリ上のラスタ�
 
 ## サンプル: 各言語からBarBridgeを呼び出す
 
-`windows-x64/`・`windows-arm64/`・`linux-x64/`・`linux-arm64/` にはそれぞれ
-対応言語ごとの最小サンプルが入っており、すべて同じネイティブライブラリ
-(Windowsでは`barbridge.dll`、Linuxでは`libbarbridge.so`)をC ABI経由で
-呼び出します。
+`windows-x64/`・`windows-arm64/`・`linux-x64/`・`linux-arm64/`・`macos-arm64/`
+にはそれぞれ対応言語ごとの最小サンプルが入っており、すべて同じネイティブ
+ライブラリ(Windowsでは`barbridge.dll`、Linuxでは`libbarbridge.so`、macOSでは
+`libbarbridge.dylib`)をC ABI経由で呼び出します。
 
 ```
 barbridge/
@@ -57,10 +57,11 @@ barbridge/
 ├── windows-x64/       # Windows (x64)
 ├── windows-arm64/      # Windows (ARM64)
 ├── linux-x64/          # Linux (x64)
-└── linux-arm64/        # Linux (ARM64)
-    ├── native/barbridge.dll(.lib) または libbarbridge.so
+├── linux-arm64/        # Linux (ARM64)
+└── macos-arm64/        # macOS (Apple Silicon)
+    ├── native/barbridge.dll(.lib)、libbarbridge.so、または libbarbridge.dylib
     ├── common/request.json   # サンプル共通のGS1データ
-    ├── c/          # C (barbridge.dll.lib / libbarbridge.so をリンク)
+    ├── c/          # C (barbridge.dll.lib / libbarbridge.so / libbarbridge.dylib をリンク)
     ├── python/     # ctypes、標準ライブラリのみ
     ├── csharp/     # P/Invoke、`dotnet run`
     ├── vb/         # P/Invoke、`dotnet run`
