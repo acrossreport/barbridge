@@ -46,18 +46,19 @@ GS1規格内最大のサイズを自動計算して、メモリ上のラスタ�
 
 ## サンプル: 各言語からBarBridgeを呼び出す
 
-`windows-x64/` と `windows-arm64/` にはそれぞれ対応言語ごとの最小サンプルが
-入っており、すべて同じネイティブライブラリ(`barbridge.dll`)をC ABI経由で
-呼び出します。
+`windows-x64/`・`windows-arm64/`・`linux-arm64/` にはそれぞれ対応言語ごとの
+最小サンプルが入っており、すべて同じネイティブライブラリ(Windowsでは
+`barbridge.dll`、Linuxでは`libbarbridge.so`)をC ABI経由で呼び出します。
 
 ```
 barbridge/
 ├── barbridge.h       # C ABIヘッダ (C/C++, cgo 等)
 ├── windows-x64/       # Windows (x64)
-└── windows-arm64/      # Windows (ARM64)
-    ├── native/barbridge.dll, barbridge.dll.lib
+├── windows-arm64/      # Windows (ARM64)
+└── linux-arm64/        # Linux (ARM64)
+    ├── native/barbridge.dll(.lib) または libbarbridge.so
     ├── common/request.json   # サンプル共通のGS1データ
-    ├── c/          # C (barbridge.dll.lib をリンク)
+    ├── c/          # C (barbridge.dll.lib / libbarbridge.so をリンク)
     ├── python/     # ctypes、標準ライブラリのみ
     ├── csharp/     # P/Invoke、`dotnet run`
     ├── vb/         # P/Invoke、`dotnet run`
@@ -84,7 +85,7 @@ barbridge/
 ライブラリを別の場所に置いている場合は、相対パスの代わりに環境変数
 `BARBRIDGE_NATIVE_LIB` でそのパスを指定できます。
 
-macOS(arm64/x64)・Linux(arm64/x64)向けの同構成サンプルは今後公開予定です。
+macOS(arm64/x64)・Linux(x64)向けの同構成サンプルは今後公開予定です。
 
 ## 公開しているAPI(上記サンプルで使用)
 

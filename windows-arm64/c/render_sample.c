@@ -4,12 +4,12 @@
  * besides the DLL itself.
  *
  * Build (MSVC, from a "ARM64 Native Tools Command Prompt"):
- *     cl /nologo render_sample.c /I .. /link ..\native\barbridge.dll.lib /out:render_sample.exe
+ *     cl /nologo render_sample.c /I ..\.. /link ..\native\barbridge.dll.lib /out:render_sample.exe
  *     copy ..\native\barbridge.dll .
  *     render_sample.exe
  *
  * Build (MinGW/gcc):
- *     gcc render_sample.c -I .. -L ../native -lbarbridge -o render_sample.exe
+ *     gcc render_sample.c -I ../.. -L ../native -lbarbridge -o render_sample.exe
  *     copy ..\native\barbridge.dll .
  *     render_sample.exe
  */

@@ -52,18 +52,20 @@ GS1-compliant print size that still fits your target footprint (e.g. 50mm ×
 
 ## Samples: call BarBridge from your language
 
-`windows-x64/` and `windows-arm64/` each contain a self-contained, minimal
-sample for every supported language, all calling the same native library
-(`barbridge.dll`) through its C ABI:
+`windows-x64/`, `windows-arm64/`, and `linux-arm64/` each contain a
+self-contained, minimal sample for every supported language, all calling
+the same native library (`barbridge.dll` on Windows, `libbarbridge.so` on
+Linux) through its C ABI:
 
 ```
 barbridge/
 ├── barbridge.h       # C ABI header (C/C++, cgo, ...)
 ├── windows-x64/       # Windows (x64)
-└── windows-arm64/      # Windows (ARM64)
-    ├── native/barbridge.dll, barbridge.dll.lib
+├── windows-arm64/      # Windows (ARM64)
+└── linux-arm64/        # Linux (ARM64)
+    ├── native/barbridge.dll(.lib) or libbarbridge.so
     ├── common/request.json   # shared sample GS1 data
-    ├── c/          # C (link against barbridge.dll.lib)
+    ├── c/          # C (link against barbridge.dll.lib / libbarbridge.so)
     ├── python/     # ctypes, standard library only
     ├── csharp/     # P/Invoke, `dotnet run`
     ├── vb/         # P/Invoke, `dotnet run`
@@ -90,7 +92,7 @@ the buffer when done.
 If you keep the library somewhere else, point the `BARBRIDGE_NATIVE_LIB`
 environment variable at it instead of relying on the relative path.
 
-macOS (arm64/x64) and Linux (arm64/x64) builds of the same sample set are
+macOS (arm64/x64) and Linux (x64) builds of the same sample set are
 planned.
 
 ## Exposed API (used by the samples above)
