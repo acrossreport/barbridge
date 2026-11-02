@@ -46,9 +46,25 @@ GS1-compliant print size that still fits your target footprint (e.g. 50mm ×
 
 - 1D: EAN-13 / EAN-8 / UPC-A / UPC-E
 - 2D: GS1 QR Code, GS1 DataMatrix
-- GS1 Digital Link (URI representation of GTIN and attribute data)
 - GS1-128, GS1 DataBar, and other logistics/case-label symbologies are
   planned next.
+
+### What the 2D symbol actually encodes
+
+By default (`content: "auto"`), the two 2D symbol types encode different
+payloads, matching how they're actually scanned in the field:
+
+- **GS1 QR Code** → a **GS1 Digital Link** URI
+  (`https://id.gs1.org/01/{GTIN14}/10/{LOT}/17/{EXP}...`), so it opens
+  directly in any phone camera as well as a POS/logistics scanner.
+- **GS1 DataMatrix** → the raw **GS1 element string** (FNC1 + AI pairs,
+  e.g. `(01)04901234567894(10)LOT42(17)271231`), the format POS/logistics
+  scanners expect from a DataMatrix.
+
+Pass `content: "digital_link"` or `content: "element_string"` to force
+one or the other for either symbol type. GS1 Digital Link is currently
+**output-only**: a Digital Link URI is not yet accepted as `data` input
+(only a GS1 element string or a bare GTIN-8/12/13/14 are).
 
 ## Samples: call BarBridge from your language
 

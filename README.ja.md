@@ -41,8 +41,25 @@ GS1規格内最大のサイズを自動計算して、メモリ上のラスタ�
 
 - 1D: EAN-13 / EAN-8 / UPC-A / UPC-E
 - 2D: GS1 QR Code、GS1 DataMatrix
-- GS1 Digital Link(GTIN・属性データのURI表現)
 - GS1-128、GS1 DataBar等の物流・ケースラベル系シンボルは今後対応予定です。
+
+### 2Dシンボルが実際に何を符号化するか
+
+既定(`content: "auto"`)では、2つの2Dシンボル種別は実運用での読み取り方に
+合わせて異なるペイロードを符号化します。
+
+- **GS1 QR Code** → **GS1 Digital Link** のURI
+  (`https://id.gs1.org/01/{GTIN14}/10/{LOT}/17/{EXP}...`)。POS・物流用
+  スキャナだけでなく、一般のスマートフォンのカメラでも直接開けます。
+- **GS1 DataMatrix** → 生の**GS1要素文字列**(FNC1 + AIペア、例:
+  `(01)04901234567894(10)LOT42(17)271231`)。POS・物流用スキャナが
+  DataMatrixから読み取る際に想定している形式です。
+
+どちらのシンボル種別でも `content: "digital_link"` または
+`content: "element_string"` を指定すれば符号化方式を固定できます。
+GS1 Digital Linkは現時点では**出力のみ**対応しており、Digital Link の
+URI自体を `data` への入力として渡すことはまだできません(入力として
+使えるのはGS1要素文字列、またはGTIN-8/12/13/14の数字のみです)。
 
 ## サンプル: 各言語からBarBridgeを呼び出す
 
