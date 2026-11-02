@@ -5,6 +5,12 @@ English | [日本語](README.ja.md)
 **A language-independent core for GS1 Sunrise 2027 1D/2D barcode generation,
 written in Rust, usable from any language across a C ABI boundary.**
 
+## News
+
+- **GS1 Sunrise 2027-compliant BarBridge has been released.** The core now
+  generates GS1-compliant 1D/2D barcode pairs for production use — see
+  [Concept](#concept) and [Supported standards](#supported-standards) below.
+
 ## What this is
 
 In 2027, GS1 is moving retail POS barcode practice away from 1D-only symbols
@@ -20,6 +26,24 @@ GS1-compliant print size that still fits your target footprint (e.g. 50mm ×
 50mm), and renders them as an in-memory raster, PNG, or SVG.
 
 ![sample](docs/samples/ean13_gs1qr_horizontal.png)
+
+## Beyond POS: logistics and traceability
+
+GS1 Sunrise 2027 is framed around retail checkout, but the same 1D/2D pair
+is just as useful upstream of the register — receiving, picking, expiry
+checks, and recalls all need the lot number and expiration date that a
+bare GTIN barcode can't carry. Encoding a GS1 AI element string such as
+`(01)04901234567894(10)LOT42(17)271231` into the 2D symbol lets a single
+scan resolve GTIN + lot + expiry together, instead of a GTIN scan followed
+by manual lookup:
+
+![sample](docs/samples/gs1_qr_lot_expiry.png)
+
+This uses the same `barbridge_render_png` call as the POS sample above —
+only the `data` and `matrix` fields in the request JSON change (`"matrix":
+"qr"` here vs. `"data_matrix"`). GS1-128 and other case/pallet-label
+symbologies for shipping units (SSCC) are not yet supported; see
+[Supported standards](#supported-standards).
 
 ## Concept
 
@@ -68,17 +92,24 @@ one or the other for either symbol type. GS1 Digital Link is currently
 
 ## Samples: call BarBridge from your language
 
-`windows-x64/` contains a self-contained, minimal sample for each
-supported language, all calling the same native library
-(`barbridge.dll`) through its C ABI:
+`windows-x64/`, `windows-arm64/`, `linux-x64/`, `linux-arm64/`, `macos-arm64/`,
+and `macos-x64/` each contain a self-contained, minimal sample for every
+supported language, all calling the same native library (`barbridge.dll` on
+Windows, `libbarbridge.so` on Linux, `libbarbridge.dylib` on macOS) through
+its C ABI:
 
 ```
 barbridge/
 ├── barbridge.h       # C ABI header (C/C++, cgo, ...)
-└── windows-x64/       # Windows (x64)
-    ├── native/barbridge.dll, barbridge.dll.lib
+├── windows-x64/       # Windows (x64)
+├── windows-arm64/      # Windows (ARM64)
+├── linux-x64/          # Linux (x64)
+├── linux-arm64/        # Linux (ARM64)
+├── macos-arm64/        # macOS (Apple Silicon)
+└── macos-x64/          # macOS (Intel)
+    ├── native/barbridge.dll(.lib), libbarbridge.so, or libbarbridge.dylib
     ├── common/request.json   # shared sample GS1 data
-    ├── c/          # C (link against barbridge.dll.lib)
+    ├── c/          # C (link against barbridge.dll.lib / libbarbridge.so / libbarbridge.dylib)
     ├── python/     # ctypes, standard library only
     ├── csharp/     # P/Invoke, `dotnet run`
     ├── vb/         # P/Invoke, `dotnet run`
@@ -104,9 +135,6 @@ the buffer when done.
 
 If you keep the library somewhere else, point the `BARBRIDGE_NATIVE_LIB`
 environment variable at it instead of relying on the relative path.
-
-Only `windows-x64/` is published here for now. macOS (arm64/x64) and
-Linux (arm64/x64) builds of the same sample set are planned.
 
 ## Exposed API (used by the samples above)
 

@@ -1,0 +1,13 @@
+{
+  "name": "barbridge-sample-macos-arm64",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Minimal Node.js sample calling libbarbridge.dylib via koffi",
+  "main": "render_sample.js",
+  "scripts": {
+    "start": "node render_sample.js"
+  },
+  "dependencies": {
+    "koffi": "^2.9.0"
+  }
+}

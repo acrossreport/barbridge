@@ -5,6 +5,12 @@
 **GS1 Sunrise 2027 対応の 1D/2D バーコードペア生成を行う、言語非依存のコア
 ライブラリ（Rust製）。C ABI 境界ごしにどの言語からでも利用できます。**
 
+## お知らせ
+
+- **GS1 Sunrise 2027 対応版 BarBridge をリリースしました。** GS1規格に
+  準拠した1D/2Dバーコードペアを実運用で生成できます。詳しくは下記の
+  [コンセプト](#コンセプト)・[対応規格](#対応規格)をご覧ください。
+
 ## これは何か
 
 2027年、GS1は小売POSのバーコード運用を、1D単体（EAN/UPC等）から2D(GS1 QR
@@ -19,6 +25,24 @@ GS1規格内最大のサイズを自動計算して、メモリ上のラスタ�
 描画します。
 
 ![sample](docs/samples/ean13_gs1qr_horizontal.png)
+
+## POSだけじゃない: 物流・トレーサビリティ
+
+GS1 Sunrise 2027は小売のレジ通過を軸に語られますが、同じ1D/2Dペアは
+レジより手前の工程──入荷検品・ピッキング・期限チェック・リコール対応
+──でも同じだけ役立ちます。これらの工程ではGTINだけでなく、ロット番号や
+賞味期限が必要で、GTIN単体のバーコードでは扱えません。`(01)04901234567894
+(10)LOT42(17)271231` のようなGS1 AI要素文字列を2Dシンボルに載せれば、
+GTINスキャン後に手作業で照合する代わりに、1回のスキャンでGTIN・ロット・
+期限をまとめて読み取れます:
+
+![sample](docs/samples/gs1_qr_lot_expiry.png)
+
+上のPOSサンプルと同じ`barbridge_render_png`呼び出しで、リクエストJSONの
+`data`と`matrix`フィールド(ここでは`"matrix": "qr"`、POSサンプルでは
+`"data_matrix"`)を変えているだけです。SSCC(出荷単位)向けのGS1-128等の
+ケース・パレットラベル系シンボルはまだ未対応です。[対応規格](#対応規格)
+を参照してください。
 
 ## コンセプト
 
@@ -63,16 +87,23 @@ URI自体を `data` への入力として渡すことはまだできません(�
 
 ## サンプル: 各言語からBarBridgeを呼び出す
 
-`windows-x64/` には対応言語ごとの最小サンプルが入っており、すべて同じ
-ネイティブライブラリ(`barbridge.dll`)をC ABI経由で呼び出します。
+`windows-x64/`・`windows-arm64/`・`linux-x64/`・`linux-arm64/`・`macos-arm64/`・
+`macos-x64/` にはそれぞれ対応言語ごとの最小サンプルが入っており、すべて同じ
+ネイティブライブラリ(Windowsでは`barbridge.dll`、Linuxでは`libbarbridge.so`、
+macOSでは`libbarbridge.dylib`)をC ABI経由で呼び出します。
 
 ```
 barbridge/
 ├── barbridge.h       # C ABIヘッダ (C/C++, cgo 等)
-└── windows-x64/       # Windows (x64)
-    ├── native/barbridge.dll, barbridge.dll.lib
+├── windows-x64/       # Windows (x64)
+├── windows-arm64/      # Windows (ARM64)
+├── linux-x64/          # Linux (x64)
+├── linux-arm64/        # Linux (ARM64)
+├── macos-arm64/        # macOS (Apple Silicon)
+└── macos-x64/          # macOS (Intel)
+    ├── native/barbridge.dll(.lib)、libbarbridge.so、または libbarbridge.dylib
     ├── common/request.json   # サンプル共通のGS1データ
-    ├── c/          # C (barbridge.dll.lib をリンク)
+    ├── c/          # C (barbridge.dll.lib / libbarbridge.so / libbarbridge.dylib をリンク)
     ├── python/     # ctypes、標準ライブラリのみ
     ├── csharp/     # P/Invoke、`dotnet run`
     ├── vb/         # P/Invoke、`dotnet run`
@@ -98,9 +129,6 @@ barbridge/
 
 ライブラリを別の場所に置いている場合は、相対パスの代わりに環境変数
 `BARBRIDGE_NATIVE_LIB` でそのパスを指定できます。
-
-現時点では `windows-x64/` のみ公開しています。macOS(arm64/x64)・
-Linux(arm64/x64)向けの同構成サンプルは今後公開予定です。
 
 ## 公開しているAPI(上記サンプルで使用)
 
