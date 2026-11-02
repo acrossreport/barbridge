@@ -7,9 +7,12 @@ written in Rust, usable from any language across a C ABI boundary.**
 
 ## News
 
-- **GS1 Sunrise 2027-compliant BarBridge has been released.** The core now
-  generates GS1-compliant 1D/2D barcode pairs for production use — see
-  [Concept](#concept) and [Supported standards](#supported-standards) below.
+- **v0.1.0 released.** The core now generates 1D/2D barcode pairs sized
+  and laid out per the retail 2D symbol guidance in the GS1 General
+  Specifications — see [Concept](#concept) and
+  [Supported standards](#supported-standards) below. "GS1 Sunrise 2027"
+  is GS1's industry-wide 1D→1D+2D transition target, not a certification;
+  this project isn't certified or endorsed by GS1.
 
 ## What this is
 
