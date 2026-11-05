@@ -13,6 +13,10 @@ written in Rust, usable from any language across a C ABI boundary.**
   [Supported standards](#supported-standards) below. "GS1 Sunrise 2027"
   is GS1's industry-wide 1D→1D+2D transition target, not a certification;
   this project isn't certified or endorsed by GS1.
+- **Technical note**: [GS1 Sunrise 2027 — dual-marking 2D barcodes on
+  203/300 dpi thermal labels](docs/technical-notes/sunrise2027-en.md), on
+  why the 1D/2D pair often doesn't fit on a 203 dpi label and what layout
+  does.
 
 ## What this is
 
