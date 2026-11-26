@@ -53,6 +53,10 @@ Published by: BarBridge project (Across Report Renderer / ACR)
 | + batch/lot + expiry | 56 | V4 | 33 + 8 = 41 |
 | Own domain + lot + serial + expiry (ECC M) | 85 | V6 | 41 + 8 = 49 |
 
+![EAN-13 barcode paired with a GS1 QR Code encoding a GS1 Digital Link URI (rendered by BarBridge)](../samples/ean13_gs1qr_horizontal.png)
+
+Actual BarBridge output: EAN-13 + GS1 QR Code (GTIN-only, roughly the V3 row above).
+
 ### GS1 DataMatrix (element strings)
 
 | Data content (example) | Size | Modules (incl. quiet zone) |
@@ -60,6 +64,10 @@ Published by: BarBridge project (Across Report Renderer / ACR)
 | (01) GTIN | 16×16 | 18 |
 | (01) + (17) expiry + (10) lot | 20×20 | 22 |
 | + (21) serial | 22×22 | 24 |
+
+![EAN-13 barcode paired with a GS1 DataMatrix encoding a raw GS1 element string with GTIN, lot number, and expiration date (rendered by BarBridge)](../samples/gs1_datamatrix_lot_expiry.png)
+
+Actual BarBridge output: EAN-13 + a GS1 DataMatrix encoding the raw element string `(01)04901234567894(10)LOT42(17)271231` (the "(01) + (17) expiry + (10) lot" row above, 20×20).
 
 ## 5. Verifying the 50 mm Rule (203 dpi)
 
