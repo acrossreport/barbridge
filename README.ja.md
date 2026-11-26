@@ -42,11 +42,13 @@ GS1 Sunrise 2027は小売のレジ通過を軸に語られますが、同じ1D/2
 GTINスキャン後に手作業で照合する代わりに、1回のスキャンでGTIN・ロット・
 期限をまとめて読み取れます:
 
-![sample](docs/samples/gs1_qr_lot_expiry.png)
+![sample](docs/samples/gs1_datamatrix_lot_expiry.png)
 
 上のPOSサンプルと同じ`barbridge_render_png`呼び出しで、リクエストJSONの
-`data`と`matrix`フィールド(ここでは`"matrix": "qr"`、POSサンプルでは
-`"data_matrix"`)を変えているだけです。SSCC(出荷単位)向けのGS1-128等の
+`data`と`matrix`フィールド(ここでは`"matrix": "data_matrix"`、POSサンプル
+では`"qr"`)を変えているだけです。生のAI要素文字列をそのまま運ぶのは
+GS1 DataMatrixの役目なので([2Dシンボルが実際に何を符号化するか](#2dシンボルが実際に何を符号化するか)
+を参照)、こちらはDataMatrixを使っています。SSCC(出荷単位)向けのGS1-128等の
 ケース・パレットラベル系シンボルはまだ未対応です。[対応規格](#対応規格)
 を参照してください。
 
