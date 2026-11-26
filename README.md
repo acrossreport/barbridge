@@ -44,11 +44,14 @@ bare GTIN barcode can't carry. Encoding a GS1 AI element string such as
 scan resolve GTIN + lot + expiry together, instead of a GTIN scan followed
 by manual lookup:
 
-![sample](docs/samples/gs1_qr_lot_expiry.png)
+![sample](docs/samples/gs1_datamatrix_lot_expiry.png)
 
 This uses the same `barbridge_render_png` call as the POS sample above —
 only the `data` and `matrix` fields in the request JSON change (`"matrix":
-"qr"` here vs. `"data_matrix"`). GS1-128 and other case/pallet-label
+"data_matrix"` here vs. `"qr"`), since a GS1 DataMatrix is what carries the
+raw element string directly (see
+[What the 2D symbol actually encodes](#what-the-2d-symbol-actually-encodes)
+below). GS1-128 and other case/pallet-label
 symbologies for shipping units (SSCC) are not yet supported; see
 [Supported standards](#supported-standards).
 
